@@ -1,4 +1,4 @@
-PKG_CFLAGS+=-DZ_PREFIX -include zlib-1.2.5/zconf.h -include zlib-1.2.5/zlib.h
+PKG_CFLAGS+=-include zlib-1.2.5/zconf.h -include zlib-1.2.5/zlib.h
 
 all: $(SHLIB)
 

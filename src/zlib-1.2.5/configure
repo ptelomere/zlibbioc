@@ -18,7 +18,7 @@ if [ -n "${CHOST}" ]; then
     CROSS_PREFIX="${CHOST}-"
 fi
 
-STATICLIB=libz.a
+STATICLIB=libzbioc.a
 LDFLAGS="${LDFLAGS} -L. ${STATICLIB}"
 VER=`sed -n -e '/VERSION "/s/.*"\(.*\)".*/\1/p' < zlib.h`
 VER3=`sed -n -e '/VERSION "/s/.*"\([0-9]*\\.[0-9]*\\.[0-9]*\).*/\1/p' < zlib.h`
@@ -118,7 +118,7 @@ if test "$gcc" -eq 1 && ($cc -c $cflags $test.c) 2>/dev/null; then
     uname=`(uname -s || echo unknown) 2>/dev/null`
   fi
   case "$uname" in
-  Linux* | linux* | GNU | GNU/* | *BSD | DragonFly) LDSHARED=${LDSHARED-"$cc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map"} ;;
+  Linux* | linux* | GNU | GNU/* | *BSD | DragonFly) LDSHARED=${LDSHARED-"$cc -shared -Wl,-soname,libzbioc.so.1,--version-script,zlib.map"} ;;
   CYGWIN* | Cygwin* | cygwin* | OS/2*)
         EXE='.exe' ;;
   MINGW*|mingw*)
@@ -131,21 +131,21 @@ if test "$gcc" -eq 1 && ($cc -c $cflags $test.c) 2>/dev/null; then
         EXE='.exe' ;;
   QNX*)  # This is for QNX6. I suppose that the QNX rule below is for QNX2,QNX4
          # (alain.bonnefoy@icbt.com)
-                 LDSHARED=${LDSHARED-"$cc -shared -Wl,-hlibz.so.1"} ;;
+                 LDSHARED=${LDSHARED-"$cc -shared -Wl,-hlibzbioc.so.1"} ;;
   HP-UX*)
          LDSHARED=${LDSHARED-"$cc -shared $SFLAGS"}
          case `(uname -m || echo unknown) 2>/dev/null` in
          ia64)
                  shared_ext='.so'
-                 SHAREDLIB='libz.so' ;;
+                 SHAREDLIB='libzbioc.so' ;;
          *)
                  shared_ext='.sl'
-                 SHAREDLIB='libz.sl' ;;
+                 SHAREDLIB='libzbioc.sl' ;;
          esac ;;
   Darwin*)   shared_ext='.dylib'
-             SHAREDLIB=libz$shared_ext
-             SHAREDLIBV=libz.$VER$shared_ext
-             SHAREDLIBM=libz.$VER1$shared_ext
+             SHAREDLIB=libzbioc$shared_ext
+             SHAREDLIBV=libzbioc.$VER$shared_ext
+             SHAREDLIBM=libzbioc.$VER1$shared_ext
              LDSHARED=${LDSHARED-"$cc -dynamiclib -install_name $libdir/$SHAREDLIBM -compatibility_version $VER1 -current_version $VER3"} ;;
   *)             LDSHARED=${LDSHARED-"$cc -shared"} ;;
   esac
@@ -164,21 +164,21 @@ else
          case `(uname -m || echo unknown) 2>/dev/null` in
          ia64)
              shared_ext='.so'
-             SHAREDLIB='libz.so' ;;
+             SHAREDLIB='libzbioc.so' ;;
          *)
              shared_ext='.sl'
-             SHAREDLIB='libz.sl' ;;
+             SHAREDLIB='libzbioc.sl' ;;
          esac ;;
   IRIX*)     SFLAGS=${CFLAGS-"-ansi -O2 -rpath ."}
              CFLAGS=${CFLAGS-"-ansi -O2"}
-             LDSHARED=${LDSHARED-"cc -shared -Wl,-soname,libz.so.1"} ;;
+             LDSHARED=${LDSHARED-"cc -shared -Wl,-soname,libzbioc.so.1"} ;;
   OSF1\ V4*) SFLAGS=${CFLAGS-"-O -std1"}
              CFLAGS=${CFLAGS-"-O -std1"}
              LDFLAGS="${LDFLAGS} -Wl,-rpath,."
-             LDSHARED=${LDSHARED-"cc -shared  -Wl,-soname,libz.so -Wl,-msym -Wl,-rpath,$(libdir) -Wl,-set_version,${VER}:1.0"} ;;
+             LDSHARED=${LDSHARED-"cc -shared  -Wl,-soname,libzbioc.so -Wl,-msym -Wl,-rpath,$(libdir) -Wl,-set_version,${VER}:1.0"} ;;
   OSF1*)     SFLAGS=${CFLAGS-"-O -std1"}
              CFLAGS=${CFLAGS-"-O -std1"}
-             LDSHARED=${LDSHARED-"cc -shared -Wl,-soname,libz.so.1"} ;;
+             LDSHARED=${LDSHARED-"cc -shared -Wl,-soname,libzbioc.so.1"} ;;
   QNX*)      SFLAGS=${CFLAGS-"-4 -O"}
              CFLAGS=${CFLAGS-"-4 -O"}
              LDSHARED=${LDSHARED-"cc"}
@@ -225,9 +225,9 @@ else
   esac
 fi
 
-SHAREDLIB=${SHAREDLIB-"libz$shared_ext"}
-SHAREDLIBV=${SHAREDLIBV-"libz$shared_ext.$VER"}
-SHAREDLIBM=${SHAREDLIBM-"libz$shared_ext.$VER1"}
+SHAREDLIB=${SHAREDLIB-"libzbioc$shared_ext"}
+SHAREDLIBV=${SHAREDLIBV-"libzbioc$shared_ext.$VER"}
+SHAREDLIBM=${SHAREDLIBM-"libzbioc$shared_ext.$VER1"}
 
 if test $shared -eq 1; then
   echo Checking for shared library support...

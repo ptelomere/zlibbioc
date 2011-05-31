@@ -23,9 +23,9 @@
 # If the platform is *not* MinGW (e.g. it is Cygwin or UWIN),
 # the DLL name should be changed from "zlib1.dll".
 
-STATICLIB = libz.a
-SHAREDLIB = zlib1.dll
-IMPLIB    = libzdll.a
+STATICLIB = libzbioc.a
+SHAREDLIB = zlib1bioc.dll
+IMPLIB    = libzbiocdll.a
 
 #
 # Set to 1 if shared object needs to be installed
@@ -35,10 +35,14 @@ SHARED_MODE=0
 #LOC = -DASMV
 #LOC = -DDEBUG -g
 
-PREFIX =
+ifeq "$(WIN)" "64"
+PREFIX=x86_64-w64-mingw32-
+else
+endif
+
 CC = $(PREFIX)gcc
 CFLAGS = $(LOC) -O3 -Wall
-EXTRA_CFLAGS = -DNO_VIZ
+EXTRA_CFLAGS = -DNO_VIZ -DZ_PREFIX
 
 AS = $(CC)
 ASFLAGS = $(LOC) -Wall

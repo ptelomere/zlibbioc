@@ -1,0 +1,8 @@
+ChangeLog file for zlib
+
+Changes in Zlibbioc 0.1.0 / zlib 1.2.5.1 (30 May 2011)
+	- remove unnecessary files
+	- rename dll zlib1bioc.dll
+	- adjust prefix to bioc_
+	- map export symbols to bioc_ in win32/zlib.def
+	- manually set PREFIX in make file for GCC version switch

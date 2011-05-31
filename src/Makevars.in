@@ -2,6 +2,11 @@ PKG_CFLAGS+=-DZ_PREFIX -include zlib-1.2.5/zconf.h -include zlib-1.2.5/zlib.h
 
 all: $(SHLIB)
 
-$(SHLIB):
-	make -C zlib-1.2.5 -fMakefile clean zlibbioc${DYLIB_EXT}
-	cp zlib-1.2.5/zlibbioc${DYLIB_EXT} zlibbioc${DYLIB_EXT}
+$(SHLIB): zlib
+
+zlib:
+	make -C zlib-1.2.5 -fMakefile clean libzbioc.a libzbioc.so.1.2.5
+	cp zlib-1.2.5/libzbioc.so libzbioc${DYLIB_EXT}
+
+clean:
+	make -C zlib-1.2.5 -fMakefile clean

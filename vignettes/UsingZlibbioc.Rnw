@@ -1,0 +1,39 @@
+%\VignetteIndexEntry{Using zlibbioc C libraries}
+%\VignetteDepends{}
+%\VignettePackage{zlibbioc}
+\documentclass[]{article}
+
+\usepackage{times}
+\usepackage{hyperref}
+
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rmethod}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\texttt{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+\newcommand{\Rcode}[1]{{\texttt{#1}}}
+
+\newcommand{\software}[1]{\textsf{#1}}
+\newcommand{\zlib}{\software{zlib}}
+\newcommand{\R}{\software{R}}
+\newcommand{\Bioconductor}{\software{Bioconductor}}
+
+\title{Using zlibbioc}
+\author{Martin Morgan}
+\date{Modified: 30 May, 2011. Compiled: \today}
+
+\begin{document}
+
+\maketitle
+
+The \Rpackage{zlibbioc} package is meant as a utility for package
+developers. It contains the source code to the
+\href{http://zlib.net}{\zlib} library, and can be used to access
+\zlib{} shared library functionality.
+
+The \Rpackage{zlibbioc} package is installed in the normal \R{}
+manner; to configure for special neeeds (on non-Windows systems), see
+the instructions in \texttt|zlibbioc/src/zlib-1.2.5/configure|.
+
+\end{document}

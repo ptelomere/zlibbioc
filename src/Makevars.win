@@ -1,0 +1,7 @@
+PKG_CFLAGS+=-DZ_PREFIX -include zlib-1.2.5/zconf.h -include zlib-1.2.5/zlib.h
+
+all: $(SHLIB)
+
+$(SHLIB):
+	make -C zlib-1.2.5 -fwin32/Makefile.gcc clean zlib1bioc.dll
+	cp zlib-1.2.5/zlib1bioc.dll zlib1bioc.dll

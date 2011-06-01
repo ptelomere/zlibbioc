@@ -1,12 +1,15 @@
-PKG_CFLAGS+=-include zlib-1.2.5/zconf.h -include zlib-1.2.5/zlib.h
+all: libzbioc${DYLIB_EXT} $(SHLIB)
 
-all: $(SHLIB)
-
-$(SHLIB): zlib
-
-zlib:
-	make -C zlib-1.2.5 -fMakefile clean libzbioc.a libzbioc.so.1.2.5
-	cp zlib-1.2.5/libzbioc.so libzbioc${DYLIB_EXT}
+libzbioc${DYLIB_EXT}:
+	make -C zlib-1.2.5 -fMakefile libzbioc.a libzbioc.so.1.2.5
+	mkdir -p "${R_PACKAGE_DIR}/usrlib${R_ARCH}"
+	cp zlib-1.2.5/libzbioc.a \
+		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/libzbioc.a"
+	cp zlib-1.2.5/libzbioc.so \
+		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/libzbioc${DYLIB_EXT}"
+	mkdir -p "${R_PACKAGE_DIR}/include"
+	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include
 
 clean:
 	make -C zlib-1.2.5 -fMakefile clean
+	rm libzbioc${DYLIB_EXT}

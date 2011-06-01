@@ -36,4 +36,39 @@ The \Rpackage{zlibbioc} package is installed in the normal \R{}
 manner; to configure for special neeeds (on non-Windows systems), see
 the instructions in \texttt|zlibbioc/src/zlib-1.2.5/configure|.
 
+To discover appropriate header files at package installation time, add
+\begin{verbatim}
+LinkingTo: zlibbioc
+\end{verbatim}
+to the \verb|DESCRIPTION| file, and reference the relevant include
+file in your C source code:
+\begin{verbatim}
+#include "zlib.h"
+\end{verbatim}
+The content of the include files can be found in the
+\Rpackage{zlibbioc} source (under \verb|src/zlib-1.2.5|) or at their
+installed location.
+
+On Windows, the recommended approach is to link to the DLL. The only
+requirement for this is to ensure that \Rpackage{zlibbioc} is loaded
+before your package; add \code|Imports: zlibbioc| to your
+\texttt|DESCRIPTION| file.
+
+On Linux and MacOS, link to static libraries with the following code
+in \verb|src/Makevars|:
+\begin{verbatim}
+PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_static")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+\end{verbatim}
+Link to the shared library (see qualifications about portability in
+`Writing \R{} Extensions') with
+\begin{verbatim}
+PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_dynamic")' |\
+    "${R_HOME}/bin/R" --vanilla --slave)
+\end{verbatim}
+
 \end{document}

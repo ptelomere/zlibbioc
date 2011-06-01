@@ -51,7 +51,7 @@ installed location.
 
 On Windows, the recommended approach is to link to the DLL. The only
 requirement for this is to ensure that \Rpackage{zlibbioc} is loaded
-before your package; add \code|Imports: zlibbioc| to your
+before your package; add \Rcode|Imports: zlibbioc| to your
 \texttt|DESCRIPTION| file.
 
 On Linux and MacOS, link to static libraries with the following code

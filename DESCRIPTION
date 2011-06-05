@@ -1,7 +1,7 @@
 Package: zlibbioc
 Type: Package
 Title: An R packaged zlib-1.2.5
-Version: 0.1.1
+Version: 0.1.2
 Author: Martin Morgan
 Maintainer: Biocore Team c/o BioC user list <bioconductor@stat.math.ethz.ch>
 Description: This package uses the source code of zlib-1.2.5 to create

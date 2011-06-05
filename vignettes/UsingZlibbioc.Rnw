@@ -34,14 +34,13 @@ developers. It contains the source code to the
 
 The \Rpackage{zlibbioc} package is installed in the normal \R{}
 manner; to configure for special neeeds (on non-Windows systems), see
-the instructions in \texttt|zlibbioc/src/zlib-1.2.5/configure|.
+the instructions in \verb|zlibbioc/src/zlib-1.2.5/configure|.
 
-To discover appropriate header files at package installation time, add
-\begin{verbatim}
-LinkingTo: zlibbioc
-\end{verbatim}
-to the \verb|DESCRIPTION| file, and reference the relevant include
-file in your C source code:
+All ackages wishing to use the libraries in \Rpackage{zlibbioc} must
+\begin{itemize}
+\item Add \texttt{Depends: zlibbioc} to the \verb|DESCRIPTION| file.
+\end{itemize}
+Reference the relevant include file in your C source code:
 \begin{verbatim}
 #include "zlib.h"
 \end{verbatim}
@@ -49,26 +48,43 @@ The content of the include files can be found in the
 \Rpackage{zlibbioc} source (under \verb|src/zlib-1.2.5|) or at their
 installed location.
 
-On Windows, the recommended approach is to link to the DLL. The only
-requirement for this is to ensure that \Rpackage{zlibbioc} is loaded
-before your package; add \Rcode|Imports: zlibbioc| to your
-\texttt|DESCRIPTION| file.
+On Windows, the recommended approach is to link to the DLL. This
+requires that the appropriate header files are available to the gcc
+compiler, and that the DLL is discovered by the linker.
+\begin{itemize}
+\item Create a file \verb|src/Makevars.win| including the following
+  lines:
+\begin{verbatim}
+ZLIB_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
+    "${R_HOME}/bin/R" --vanilla --slave)
+.c.o:
+    $(CC) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CFLAGS) -c $< -o $@
+\end{verbatim}
+\end{itemize}
 
-On Linux and MacOS, link to static libraries with the following code
-in \verb|src/Makevars|:
+On Linux and MacOS, the most portable solution is to link to static
+libraries
+\begin{itemize}
+\item Create af file \verb|src/Makevars| including the following lines:
 \begin{verbatim}
 PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
     "${R_HOME}/bin/R" --vanilla --slave)
 PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_static")'|\
     "${R_HOME}/bin/R" --vanilla --slave)
 \end{verbatim}
-Link to the shared library (see qualifications about portability in
-`Writing \R{} Extensions') with
+\end{itemize}
+It is also possible to link to the shared library (see qualifications
+about portability in `Writing \R{} Extensions') with
 \begin{verbatim}
 PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
     "${R_HOME}/bin/R" --vanilla --slave)
 PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
     "${R_HOME}/bin/R" --vanilla --slave)
 \end{verbatim}
+
+The \Rpackage{Rsamtools} package is a more complex example
+illustrating this approach.
 
 \end{document}

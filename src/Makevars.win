@@ -1,12 +1,11 @@
-PKG_CFLAGS+=-DZ_PREFIX
+.PHONY: all libzbioc
 
-all: zlib1bioc.dll $(SHLIB)
+all: libzbioc $(SHLIB)
 
-zlib1bioc.dll:
-	make -C zlib-1.2.5 -fwin32/Makefile.gcc clean libzbioc.a zlib1bioc.dll
-	mkdir -p "${R_PACKAGE_DIR}/inst/usrlib${R_ARCH}"
-	cp zlib-1.2.5/libzbioc.a \
-		"${R_PACKAGE_DIR}/inst/usrlib${R_ARCH}/libzbioc.a"
-	cp zlib-1.2.5/zlib1bioc.dll zlib1bioc.dll
+libzbioc:
+	make -C zlib-1.2.5 -fwin32/Makefile.gcc libzbioc.a zlib1bioc.dll
+	mkdir -p "${R_PACKAGE_DIR}/usrlib${R_ARCH}"
+	cp zlib-1.2.5/libzbioc.a zlib-1.2.5/zlib1bioc.dll \
+		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/"
 	mkdir -p ${R_PACKAGE_DIR}/include
 	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include

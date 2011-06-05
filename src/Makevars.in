@@ -1,15 +1,11 @@
-all: libzbioc${DYLIB_EXT} $(SHLIB)
+all: libzbioc $(SHLIB)
 
-libzbioc${DYLIB_EXT}:
+libzbioc:
 	make -C zlib-1.2.5 -fMakefile libzbioc.a libzbioc.so.1.2.5
 	mkdir -p "${R_PACKAGE_DIR}/usrlib${R_ARCH}"
-	cp zlib-1.2.5/libzbioc.a \
-		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/libzbioc.a"
-	cp zlib-1.2.5/libzbioc.so \
-		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/libzbioc${DYLIB_EXT}"
+	cp zlib-1.2.5/libzbioc.* "${R_PACKAGE_DIR}/usrlib${R_ARCH}/"
 	mkdir -p "${R_PACKAGE_DIR}/include"
 	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include
 
 clean:
 	make -C zlib-1.2.5 -fMakefile clean
-	rm libzbioc${DYLIB_EXT}

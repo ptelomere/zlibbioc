@@ -64,8 +64,7 @@ PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
 \end{verbatim}
 \end{itemize}
 
-On Linux and MacOS, the most portable solution is to link to static
-libraries
+On Linux, the most portable solution is to link to static libraries
 \begin{itemize}
 \item Create af file \verb|src/Makevars| including the following lines:
 \begin{verbatim}
@@ -83,6 +82,9 @@ PKG_CFLAGS+=`echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
 PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
     "${R_HOME}/bin/R" --vanilla --slave`
 \end{verbatim}
+
+MacOS has zlib installed, so building the libraries are niether
+necessary nor supported on that platform.
 
 The \Rpackage{Rsamtools} package is a more complex example
 illustrating this approach.

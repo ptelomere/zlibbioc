@@ -14,22 +14,34 @@ pkgconfig <-
                "PKG_LIBS_shared"))
 {
     opt <- match.arg(opt)
-    incl <- system.file("include", package="zlibbioc")
     pth <- system.file("usrlib", package="zlibbioc", mustWork=TRUE)
     if (nzchar(.Platform$r_arch)) {
         arch <- sprintf("/%s", .Platform$r_arch)
     } else {
         arch <- ""
     }
-    if ("windows" == .Platform$OS.type) {
-        PKG_LIBS_shared <-
-            sprintf('-L"%s%s" -lzlib1bioc', pth, arch)
-    } else {
-        PKG_LIBS_shared <-
-            sprintf('-L"%s%s" -Wl,-rpath,"%s%s" -lzbioc', pth, arch,
-                    pth, arch)
-    }
-    cat(list(PKG_CFLAGS=sprintf('-I"%s"', incl),
-             PKG_LIBS_static=sprintf('"%s%s/libzbioc.a"', pth, arch),
+    uname <-
+        if ("windows" == .Platform$OS.type) "windows"
+        else if ("Darwin" == system("uname -s", intern=TRUE)) "darwin"
+        else "other"
+
+    PKG_CFLAGS <-
+        switch(uname, darwin="",
+               sprintf('-I"%s"',
+                       system.file("include", package="zlibbioc")))
+
+     PKG_LIBS_static <-
+        switch(uname,
+               darwin="-lz",
+               sprintf('"%s%s/libzbioc.a"', pth, arch))
+
+     PKG_LIBS_shared <-
+        switch(uname,
+               windows=sprintf('-L"%s%s" -lzlib1bioc', pth, arch),
+               darwin="-lz",
+               sprintf('-L"%s%s" -Wl,-rpath,"%s%s" -lzbioc', pth,
+                       arch, pth, arch))
+
+    cat(list(PKG_CFLAGS=PKG_CFLAGS, PKG_LIBS_static=PKG_LIBS_static,
              PKG_LIBS_shared=PKG_LIBS_shared)[[opt]])
 }

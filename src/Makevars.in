@@ -5,13 +5,13 @@ uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 all: libzbioc $(SHLIB)
 
 libzbioc:
+	mkdir -p "${R_PACKAGE_DIR}/usrlib${R_ARCH}"
+	mkdir -p "${R_PACKAGE_DIR}/include"
 ifneq ($(uname_S),Darwin)
 	make -C zlib-1.2.5 -fMakefile libzbioc.a libzbioc.so.1.2.5
-endif
-	mkdir -p "${R_PACKAGE_DIR}/usrlib${R_ARCH}"
 	cp zlib-1.2.5/libzbioc.* "${R_PACKAGE_DIR}/usrlib${R_ARCH}/"
-	mkdir -p "${R_PACKAGE_DIR}/include"
 	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include
+endif
 
 clean:
 	make -C zlib-1.2.5 -fMakefile clean

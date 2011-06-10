@@ -55,10 +55,10 @@ compiler, and that the DLL is discovered by the linker.
 \item Create a file \verb|src/Makevars.win| including the following
   lines:
 \begin{verbatim}
-ZLIB_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
-    "${R_HOME}/bin/R" --vanilla --slave)
-PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
-    "${R_HOME}/bin/R" --vanilla --slave)
+ZLIB_CFLAGS+=`echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave`
+PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
+    "${R_HOME}/bin/R" --vanilla --slave`
 .c.o:
     $(CC) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CFLAGS) -c $< -o $@
 \end{verbatim}
@@ -69,19 +69,19 @@ libraries
 \begin{itemize}
 \item Create af file \verb|src/Makevars| including the following lines:
 \begin{verbatim}
-PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
-    "${R_HOME}/bin/R" --vanilla --slave)
-PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_static")'|\
-    "${R_HOME}/bin/R" --vanilla --slave)
+PKG_CFLAGS+=`echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave`
+PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_static")'|\
+    "${R_HOME}/bin/R" --vanilla --slave`
 \end{verbatim}
 \end{itemize}
 It is also possible to link to the shared library (see qualifications
 about portability in `Writing \R{} Extensions') with
 \begin{verbatim}
-PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
-    "${R_HOME}/bin/R" --vanilla --slave)
-PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
-    "${R_HOME}/bin/R" --vanilla --slave)
+PKG_CFLAGS+=`echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave`
+PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
+    "${R_HOME}/bin/R" --vanilla --slave`
 \end{verbatim}
 
 The \Rpackage{Rsamtools} package is a more complex example

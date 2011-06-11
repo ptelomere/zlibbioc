@@ -62,6 +62,12 @@ PKG_LIBS+=`echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
 .c.o:
     $(CC) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CFLAGS) -c $< -o $@
 \end{verbatim}
+Packages with \verb|C++| code also require the rule
+\begin{verbatim}
+%.o: %.cc
+    $(CXX) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) -c $< -o $@
+\end{verbatim}
+(remember that  the second line of each rule begins with a tab, not spaces).
 \end{itemize}
 
 On Linux, the most portable solution is to link to static libraries

@@ -9,3 +9,6 @@ libzbioc:
 		"${R_PACKAGE_DIR}/usrlib${R_ARCH}/"
 	mkdir -p ${R_PACKAGE_DIR}/include
 	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include
+
+clean:
+	rm zlib-1.2.5/*o zlib-1.2.5/*dll zlib-1.2.5/*a

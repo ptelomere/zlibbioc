@@ -38,7 +38,8 @@ the instructions in \verb|zlibbioc/src/zlib-1.2.5/configure|.
 
 All ackages wishing to use the libraries in \Rpackage{zlibbioc} must
 \begin{itemize}
-\item Add \texttt{Depends: zlibbioc} to the \verb|DESCRIPTION| file.
+\item Add \texttt{Imports: zlibbioc} to the \verb|DESCRIPTION| file.
+\item Add \texttt{import(zlibbioc)} to the \verb|NAMESPACE| file.
 \end{itemize}
 Reference the relevant include file in your C source code:
 \begin{verbatim}

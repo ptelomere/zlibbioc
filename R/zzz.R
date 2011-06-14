@@ -3,7 +3,7 @@
 {
     ## make DLL available for Windows; others use static library
     if ("windows" == .Platform$OS.type) {
-        dll <- file.path(libname, pkgname, "usrlib", .Platform$r_arch,
+        dll <- file.path(libname, pkgname, "libs", .Platform$r_arch,
                          "zlib1bioc.dll")
         dyn.load(dll)
     }
@@ -14,7 +14,7 @@ pkgconfig <-
                "PKG_LIBS_shared"))
 {
     opt <- match.arg(opt)
-    pth <- system.file("usrlib", package="zlibbioc", mustWork=TRUE)
+    pth <- system.file("libs", package="zlibbioc", mustWork=TRUE)
     if (nzchar(.Platform$r_arch)) {
         arch <- sprintf("/%s", .Platform$r_arch)
     } else {

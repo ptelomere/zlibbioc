@@ -3,10 +3,10 @@
 all: libzbioc $(SHLIB)
 
 libzbioc:
-	mkdir -p ${R_PACKAGE_DIR}/include
+	mkdir -p "${R_PACKAGE_DIR}/include"
 	make -C zlib-1.2.5 -fwin32/Makefile.gcc libzbioc.a zlib1bioc.dll
 	cp zlib-1.2.5/libzbioc.a zlib-1.2.5/zlib1bioc.dll .
-	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h ${R_PACKAGE_DIR}/include
+	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h "${R_PACKAGE_DIR}/include"
 
 clean:
 	rm zlib-1.2.5/*o zlib-1.2.5/*dll zlib-1.2.5/*a

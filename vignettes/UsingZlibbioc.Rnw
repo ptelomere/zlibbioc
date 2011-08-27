@@ -33,10 +33,10 @@ developers. It contains the source code to the
 \zlib{} shared library functionality.
 
 The \Rpackage{zlibbioc} package is installed in the normal \R{}
-manner; to configure for special neeeds (on non-Windows systems), see
+manner; to configure for special needs (on non-Windows systems), see
 the instructions in \verb|zlibbioc/src/zlib-1.2.5/configure|.
 
-All ackages wishing to use the libraries in \Rpackage{zlibbioc} must
+All packages wishing to use the libraries in \Rpackage{zlibbioc} must
 \begin{itemize}
 \item Add \texttt{Imports: zlibbioc} to the \verb|DESCRIPTION| file.
 \item Add \texttt{import(zlibbioc)} to the \verb|NAMESPACE| file.
@@ -73,7 +73,7 @@ Packages with \verb|C++| code also require the rule
 
 On Linux, the most portable solution is to link to static libraries
 \begin{itemize}
-\item Create af file \verb|src/Makevars| including the following lines:
+\item Create a file \verb|src/Makevars| including the following lines:
 \begin{verbatim}
 PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
     "${R_HOME}/bin/R" --vanilla --slave)
@@ -90,7 +90,7 @@ PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
     "${R_HOME}/bin/R" --vanilla --slave)
 \end{verbatim}
 
-MacOS has zlib installed, so building the libraries are niether
+MacOS has zlib installed, so building the libraries are neither
 necessary nor supported on that platform.
 
 The \Rpackage{Rsamtools} package is a more complex example

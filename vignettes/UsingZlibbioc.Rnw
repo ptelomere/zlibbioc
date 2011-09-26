@@ -63,7 +63,8 @@ PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
 %.o: %.c
     $(CC) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CFLAGS) -c $< -o $@
 \end{verbatim}
-Packages with \verb|C++| code also require the rule
+Packages with \verb|C++| code also require the rule (replace
+\verb|.cc| with \verb|.cpp| as necessary)
 \begin{verbatim}
 %.o: %.cc
     $(CXX) $(ZLIB_CFLAGS) $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) -c $< -o $@

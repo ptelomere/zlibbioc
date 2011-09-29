@@ -19,9 +19,9 @@
 \newcommand{\R}{\software{R}}
 \newcommand{\Bioconductor}{\software{Bioconductor}}
 
-\title{Using zlibbioc}
+\title{Using \Rpackage{zlibbioc}}
 \author{Martin Morgan}
-\date{Modified: 30 May, 2011. Compiled: \today}
+\date{Modified: 29 September, 2011. Compiled: \today}
 
 \begin{document}
 
@@ -30,11 +30,26 @@
 The \Rpackage{zlibbioc} package is meant as a utility for package
 developers. It contains the source code to the
 \href{http://zlib.net}{\zlib} library, and can be used to access
-\zlib{} shared library functionality.
+\zlib{} shared library functionality. The library is made available as
+\verb|libzbioc|.
 
 The \Rpackage{zlibbioc} package is installed in the normal \R{}
-manner; to configure for special needs (on non-Windows systems), see
-the instructions in \verb|zlibbioc/src/zlib-1.2.5/configure|.
+manner. The \verb|libzbioc| library is always built on Windows, but on
+other platforms it is only built when provided with the configure
+option \verb|--with-libzbioc|, e.g., as
+\begin{verbatim}
+R CMD INSTALL --with-libzbioc zlibioc_<...>.tar.gz
+\end{verbatim}
+or
+\begin{verbatim}
+> install.pacakges("zlibbioc_<...>.tar.gz", 
+                   configure.args="--with-libzbioc")
+\end{verbatim}
+MacOS has \verb|zlib| installed, so building the libraries are neither
+necessary nor supported on that platform. Advanced use cases may
+require consultation of instructions in
+\verb|zlibbioc/src/zlib-1.2.5/configure|.
+
 
 All packages wishing to use the libraries in \Rpackage{zlibbioc} must
 \begin{itemize}
@@ -72,7 +87,8 @@ Packages with \verb|C++| code also require the rule (replace
 (remember that  the second line of each rule begins with a tab, not spaces).
 \end{itemize}
 
-On Linux, the most portable solution is to link to static libraries
+On Linux and other platforms, the most portable solution is to link to
+static libraries
 \begin{itemize}
 \item Create a file \verb|src/Makevars| including the following lines:
 \begin{verbatim}
@@ -90,9 +106,6 @@ PKG_CFLAGS+=$(shell echo 'zlibbioc::pkgconfig("PKG_CFLAGS")'|\
 PKG_LIBS+=$(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
     "${R_HOME}/bin/R" --vanilla --slave)
 \end{verbatim}
-
-MacOS has zlib installed, so building the libraries are neither
-necessary nor supported on that platform.
 
 The \Rpackage{Rsamtools} package is a more complex example
 illustrating this approach.

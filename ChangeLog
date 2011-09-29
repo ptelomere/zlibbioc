@@ -1,7 +1,11 @@
-ChangeLog file for zlib
+2011-09-29  Martin Morgan  <mtmorgan@fhcrc.org>
 
-Changes in Zlibbioc 0.1.0 / zlib 1.2.5.1 (30 May 2011)
-	- remove unnecessary files
+	* configure.ac: build libzbioc only on Windows by default
+
+2011-05-30  Martin Morgan  <mtmorgan@fhcrc.org>
+
+	* src/zlib-1.2.5: adjust zlib for zlibbioc
+	-  remove unnecessary files
 	- rename dll zlib1bioc.dll
 	- adjust prefix to bioc_
 	- map export symbols to bioc_ in win32/zlib.def

@@ -1,16 +1,17 @@
-uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
-
 .PHONY: all libzbioc
 
 all: libzbioc $(SHLIB)
 
 libzbioc:
 	mkdir -p "${R_PACKAGE_DIR}/include"
-ifneq ($(uname_S),Darwin)
-	make -C zlib-1.2.5 -fMakefile libzbioc.a libzbioc.so.1.2.5
+ifeq (@LIBZBIOC@,yes)
+	cd zlib-1.2.5 && \
+		$(MAKE) -fMakefile libzbioc.a libzbioc.so.1.2.5 && cd ..
 	cp zlib-1.2.5/libzbioc.* .
 	cp zlib-1.2.5/zconf.h zlib-1.2.5/zlib.h "${R_PACKAGE_DIR}/include"
 endif
 
+ifeq (@LIBZBIOC@,yes)
 clean:
-	make -C zlib-1.2.5 -fMakefile clean
+	cd zlib-1.2.5 && $(MAKE) -fMakefile clean && cd ..
+endif

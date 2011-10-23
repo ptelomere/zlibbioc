@@ -1,9 +1,9 @@
 Package: zlibbioc
 Type: Package
 Title: An R packaged zlib-1.2.5
-Version: 0.1.8
+Version: 0.1.9
 Author: Martin Morgan
-Maintainer: Biocore Team c/o BioC user list <bioconductor@stat.math.ethz.ch>
+Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Description: This package uses the source code of zlib-1.2.5 to create
   libraries for systems that do not have these available via other
   means (most Linux and Mac users should have system-level access to

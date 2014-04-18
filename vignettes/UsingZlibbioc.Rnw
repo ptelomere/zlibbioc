@@ -38,7 +38,7 @@ manner. The \verb|libzbioc| library is always built on Windows, but on
 other platforms it is only built when provided with the configure
 option \verb|--with-libzbioc|, e.g., as
 \begin{verbatim}
-R CMD INSTALL --with-libzbioc zlibioc_<...>.tar.gz
+R CMD INSTALL --configure-args="--with-libzbioc" zlibioc_<...>.tar.gz
 \end{verbatim}
 or
 \begin{verbatim}

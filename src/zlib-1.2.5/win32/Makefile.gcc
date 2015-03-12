@@ -35,10 +35,11 @@ SHARED_MODE=0
 #LOC = -DASMV
 #LOC = -DDEBUG -g
 
-PREFIX =
 ifeq "$(WIN)" "64"
+PREFIX = "$(RTOOLS)gcc492_64/bin/"
 CC = $(PREFIX)gcc -m64
 else
+PREFIX = "$(RTOOLS)gcc492_32/bin/"
 CC = $(PREFIX)gcc -m32
 endif
 CFLAGS = $(LOC) -O3 -Wall
